@@ -5,7 +5,7 @@ module.exports = (robot) ->
   otr = {}
 
   logMessage = (msg) ->
-    fs.appendFile "logs/" + msg.message.room + ".log", msg.message.user.name + ": " + msg.message.text, (error) ->
+    fs.appendFile "logs/" + msg.message.room + ".log", msg.message.user.name + ": " + msg.message.text + "\n", (error) ->
       if error
         console.log error
 
