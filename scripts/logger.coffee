@@ -20,6 +20,6 @@ module.exports = (robot) ->
         otr[res.message.room] = false
     , 5 * 60 * 1000
     res.send "My lips are sealed. Room going back on the record in 5 minutes."
-  robot.hear /record/i, (res) ->
+  robot.respond /record/i, (res) ->
     otr[res.message.room] = false
     res.send "I'm all ears!"
