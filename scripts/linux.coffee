@@ -6,7 +6,7 @@ Linux is the kernel: the program in the system that allocates the machine’s re
 """
 
 module.exports = (robot) ->
-  robot.respond /.*linux.*/i, (res) ->
+  robot.hear /.*linux.*/i, (res) ->
     # restrict to #ucf-lug
     return if res.message.room != 'ucf-lug' or res.message.match /gnu\/linux/i
  
