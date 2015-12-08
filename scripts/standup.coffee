@@ -14,7 +14,7 @@ module.exports = (robot) ->
     setTimeout(standup, 1000 * 60 * 60 * 24)
   if process.env.HUBOT_IS_BENDER?
     curTime = new Date()
-    curTime.setHours(14)
+    curTime.setHours(11)
     diff = (curTime.getTime() - new Date().getTime())
     if diff < 0
       diff = ((curTime.getTime() + 60 * 60 * 24 * 1000) - new Date().getTime())
