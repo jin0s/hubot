@@ -28,7 +28,13 @@ module.exports = (robot) ->
               msg += row['school'] + ': ' + row['count(*)'] + "\n"
             msg += '```'
             res.send(msg)
-            connection.end()
+
+
+            connection.query('select count(*) from confirmations where has_confirmed IS NULL and available_since < ' + ((new Date).getTime() / 1000 - 3600 * 24 * 3), (err, rows, fields) ->
+              res.send("Students who have expired: " + rows[0]['count(*)'])
+              res.send("Students who could still confirm: " + (total - confirmed - rows[0]['count(*)']))
+              connection.end()
+            )
           )
         )
       )
