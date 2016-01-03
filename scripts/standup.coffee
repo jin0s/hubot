@@ -3,12 +3,12 @@
 
 module.exports = (robot) ->
   standup = ->
-    robot.messageRoom 'general', "<!channel> Hello everyone! Time for standup. Please tell me:
-    \n1) What you did yesterday
-    \n2) What you plan to do today
-    \n3) What, if anything, is standing in your way
+    robot.messageRoom 'general', "<!channel> HACKATHON IS HAPPENING SOON! So stand up and get ready to be :lit: !
+    \n1) What did you do yesterday?
+    \n2) What do you plan to do today?
+    \n3) What, if anything, is standing in your way?
     \n
-    \nHave a great day everybody! :knighthacks: :night_with_stars: :computer:
+    \nHave a great day team! And remember, every time you skip standup, God kills a :cat2:\n:knighthacks: :night_with_stars: :computer:
     "
     robot.messageRoom 'sponsorship', "<!channel> Sponsorship standup! Any leads to follow up on? :knighthacks: :night_with_stars: :computer:"
     setTimeout(standup, 1000 * 60 * 60 * 24)
