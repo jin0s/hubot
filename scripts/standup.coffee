@@ -11,6 +11,7 @@ module.exports = (robot) ->
     \nHave a great day team! And remember, every time you skip standup, God kills a :cat2:\n:knighthacks: :night_with_stars: :computer:
     "
     robot.messageRoom 'sponsorship', "<!channel> Sponsorship standup! Any leads to follow up on? :knighthacks: :night_with_stars: :computer:"
+  ###
     setTimeout(standup, 1000 * 60 * 60 * 24)
   if process.env.HUBOT_IS_BENDER?
     curTime = new Date()
@@ -20,4 +21,4 @@ module.exports = (robot) ->
       diff = ((curTime.getTime() + 60 * 60 * 24 * 1000) - new Date().getTime())
     console.log("Scheduling standup for " + (diff / 1000 / 60 / 60) + " hours from now")
     setTimeout(standup, diff)
-
+  ###
