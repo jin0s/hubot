@@ -1,0 +1,12 @@
+[Service]
+ExecStart=/home/hubot/bmo/run.sh
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=hubot-bmo
+User=hubot
+Group=hubot
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
