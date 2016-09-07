@@ -19,6 +19,7 @@
     "hubot-shipit": "^0.2.0",
     "hubot-slack": "^3.3.0",
     "hubot-wikipedia": "0.0.3",
+    "markov": "0.0.7",
     "word-list-json": "^0.2.0"
   },
   "engines": {
