@@ -24,10 +24,6 @@ module.exports = (robot) ->
 		getGarages (garages) ->
 			response = ""
 			for garage in garages
-				if garage.garage == 'C' and ~~garage.perc > 95
-					garage.perc = 100000
-				if garage.garage == 'A' and ~~garage.perc > 95
-					garage.perc = 'somuch'
 				response += "Garage #{garage.garage} #{garage.perc}%\n"
 			msg.send(response)
 	
