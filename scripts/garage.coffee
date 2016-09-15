@@ -23,8 +23,13 @@ module.exports = (robot) ->
 	robot.respond /garage/i, (msg)->
 		getGarages (garages) ->
 			response = ""
+			smallest = 100
 			for garage in garages
+				if garage.perc < smallest
+					smallest = garage.perc
 				response += "Garage #{garage.garage} #{garage.perc}%\n"
+			if smallest > 90
+				response += "http://i.imgur.com/OXlUFE1.jpg\n"
 			msg.send(response)
 	
 	robot.respond /where should I park?/i, (msg)->		
