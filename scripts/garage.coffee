@@ -25,7 +25,7 @@ module.exports = (robot) ->
 			response = ""
 			smallest = 100
 			for garage in garages
-				if garage.perc < smallest
+				if garage.perc < smallest and garage.garage != 'Libra'
 					smallest = garage.perc
 				response += "Garage #{garage.garage} #{garage.perc}%\n"
 			if smallest > 90
