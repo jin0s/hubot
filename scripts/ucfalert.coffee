@@ -20,6 +20,7 @@ module.exports = (robot) ->
             saveAlertMemory()
             return
           if topItem.pubDate.toString() != alertMemory
+            robot.messageRoom "announcements", ":rotating_light: *UCF Alert* :rotating_light:\n\n" + topItem.description
             robot.messageRoom "social", ":rotating_light: *UCF Alert* :rotating_light:\n\n" + topItem.description
             alertMemory = topItem.pubDate.toString()
             saveAlertMemory()
