@@ -22,7 +22,7 @@
     "hubot-wikipedia": "0.0.3",
     "hubot-youtube": "^1.0.2",
     "markov": "0.0.7",
-    "request": "~2.53.0",
+    "request": "^2.53.0",
     "word-list-json": "^0.2.0",
     "xml2js": "^0.4.17"
   },
