@@ -27,8 +27,27 @@ module.exports = (robot) ->
 
       callback({ clinton: clinton, trump: trump, clintonFlorida: clintonFlorida, trumpFlorida: trumpFlorida })
 
-  resString = (res) ->
-    ':florida: FL: :clinton: ' + res.clintonFlorida + '% - :trump: ' + res.trumpFlorida + '% - :flag-us: National: :clinton: ' + res.clinton + '% - :trump: ' + res.trump + '%'
+  resString = (res, previous) ->
+    delta1 = ''
+    delta2 = ''
+    delta3 = ''
+    delta4 = ''
+
+    delta1 = delta res, previous, 'clintonFlorida'
+    delta2 = delta res, previous, 'trumpFlorida'
+    delta3 = delta res, previous, 'clinton'
+    delta4 = delta res, previous, 'trump'
+
+    return ':florida: FL: :clinton: ' + res.clintonFlorida + '% ' + delta1 + ' - :trump: ' + res.trumpFlorida + '% ' + delta2 + ' - :flag-us: National: :clinton: ' + res.clinton + '% ' + delta3 + ' - :trump: ' + res.trump + '% ' + delta4
+
+  delta = (res, previous, key) ->
+    return '' if not previous
+    if previous[key] > res[key]
+      return ':arrow-up:'
+    if previous[key] < res[key]
+      return ':arrow-down:'
+    return ''
+
 
   robot.respond /election/i, (r) ->
     getElection (res) ->
@@ -40,15 +59,18 @@ module.exports = (robot) ->
       for key of res
         if lastData[key] != res[key]
           difference = true
-          lastData[key] = res[key]
 
       return if not difference
 
       queryData =  {
         token: process.env.HUBOT_SLACK_TOKEN
-        topic: resString(res)
+        topic: resString(res, lastData)
         channel: "C2G9KELAW"
       }
+
+      for key of res
+        if lastData[key] != res[key]
+          lastData[key] = res[key]
 
       console.log 'Setting topic ' + queryData.topic
 
