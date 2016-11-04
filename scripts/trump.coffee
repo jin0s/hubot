@@ -42,9 +42,9 @@ module.exports = (robot) ->
 
   delta = (res, previous, key) ->
     return '' if not previous
-    if previous[key] > res[key]
-      return ':arrow_up:'
     if previous[key] < res[key]
+      return ':arrow_up:'
+    if previous[key] > res[key]
       return ':arrow_down:'
     return ''
 
