@@ -16,24 +16,41 @@
 #   hubot mustache me <query> - Searches Google Images for the specified query and mustaches it.
 
 module.exports = (robot) ->
+  lastImageUrl = {}
+  lastMessageReference = {}
+
+  robot.on 'selfmessage', (msg) ->
+    if msg.text and msg.subtype != "bot_message"
+      for key of lastImageUrl
+        if msg.text.indexOf(lastImageUrl[key]) != -1
+          lastMessageReference[key] = msg
+
+  robot.respond /delete/i, (msg) ->
+    if lastMessageReference[msg.message.rawMessage.channel]
+      queryData =  {
+          token: process.env.HUBOT_SLACK_TOKEN
+          channel: msg.message.rawMessage.channel
+          ts: lastMessageReference[msg.message.rawMessage.channel].ts
+        }
+
+      robot.http("https://slack.com/api/chat.delete")
+        .query(queryData)
+        .post() (err, res, body) ->
+          msg.reply "I deleted the message. Sorry about that. :relieved:"
+          lastMessageReference[msg.message.rawMessage.channel] = null
+          return
+    else
+      msg.reply "Nothing to delete :flushed:"
 
   robot.respond /(image|img)( me)? (.+)/i, (msg) ->
     imageMe msg, msg.match[3], (url) ->
+      lastImageUrl[msg.message.rawMessage.channel] = url
       msg.send url
 
   robot.respond /animate( me)? (.+)/i, (msg) ->
     imageMe msg, msg.match[2], true, (url) ->
-      msg.send url
-
-  # pro feature, not added to docs since you can't conditionally document commands
-  if process.env.HUBOT_GOOGLE_IMAGES_HEAR?
-    robot.hear /^(image|img) me (.+)/i, (msg) ->
-      imageMe msg, msg.match[2], (url) ->
-        msg.send url
-
-    robot.hear /^animate me (.+)/i, (msg) ->
-      imageMe msg, msg.match[1], true, (url) ->
-        msg.send url
+      lastImageUrl[msg.message.rawMessage.channel] = url
+      console.log("============== MESSAGE ==== ", msg.send(url))
 
   robot.respond /(?:mo?u)?sta(?:s|c)h(?:e|ify)?(?: me)? (.+)/i, (msg) ->
     mustacheBaseUrl =
