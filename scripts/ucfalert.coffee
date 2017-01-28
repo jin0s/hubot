@@ -25,8 +25,8 @@ module.exports = (robot) ->
             alertMemory = topItem.pubDate.toString()
             saveAlertMemory()
 
-  checkUCFAlert()
-  setInterval checkUCFAlert, 120000
+  #checkUCFAlert()
+  #setInterval checkUCFAlert, 120000
 
   saveAlertMemory = ->
     fs.writeFileSync("latest-alert.txt", alertMemory)
