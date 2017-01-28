@@ -3,7 +3,7 @@ module.exports = (robot) ->
   lastBoop = 0
 
   robot.hear /.*/g, (res) ->
-    return if res.message.room != 'bmotestchannel'
+    return if res.message.room != 'questions'
     return if res.message.rawMessage.thread_ts
 
     return if (new Date).getTime() - lastBoop < THRESHOLD
