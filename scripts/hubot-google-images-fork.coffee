@@ -48,9 +48,13 @@ module.exports = (robot) ->
       msg.send url
 
   robot.respond /animate( me)? (.+)/i, (msg) ->
-    imageMe msg, msg.match[2], true, (url) ->
-      lastImageUrl[msg.message.rawMessage.channel] = url
-      console.log("============== MESSAGE ==== ", msg.send(url))
+    # Until the Internet has suffuciently saturated itself with season 3 memes, this will be necessary.
+    if msg.match /(true|tru) (level|lvl)/i
+      msg.send "https://media.giphy.com/media/Tq4BXfeMHG3iU/giphy.gif"
+    else
+      imageMe msg, msg.match[2], true, (url) ->
+        lastImageUrl[msg.message.rawMessage.channel] = url
+        console.log("============== MESSAGE ==== ", msg.send(url))
 
   robot.respond /(?:mo?u)?sta(?:s|c)h(?:e|ify)?(?: me)? (.+)/i, (msg) ->
     mustacheBaseUrl =
